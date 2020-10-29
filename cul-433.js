@@ -39,32 +39,25 @@ module.exports = function (type, variant, port, cmd_on, cmd_off, debug) {
         };
         */
         function sendMessage(sMessage, callback) {
-                var com = new SerialPort(module.port, {baudRate: 38400, databits: 8, parity: 'none'});
-                
-                com.open(function (error) {
-                        if (error) {
-                                console.log('Error while opening the port ' +module.port +' ' + error);
+                var com = new SerialPort(module.port, {baudRate: 38400, databits: 8, parity: 'none'}, function(err) {
+                        if(err) {
+                                console.log('Error while opening the port "' + module.port +'" ' + error);
                                 callback(false);
-                        } else {
-                                console.log('Com port open');
-                                com.write(sMessage + String.fromCharCode(0x0A), function (err, result) {
-                                        if (err) {
-                                                console.log('Error while sending message: ' +sMessage +' '+ err);
+                        }else{
+                
+                                // by having the write call within the callback you can access it directly w/o using .on()
+                                com.write(sMessage + '\n', function(err) {
+                                        if(err) {
+                                                console.log('Error writing message to port "' + module.port +'" ' + error);
                                                 callback(false);
                                         }else{
-                                                console.log('Sent message: '+sMessage)
-                                                com.close(); 
+                                                console.log('Sent message "'+ sMessage + '" ');
                                                 callback(true);
-        
+                                                com.close();
                                         }
-                                        /*
-                                        if (result) {
-                                                console.log('Response received after sending message : ' + result);
-                                        } 
-                                        */   
                                 });
-                        } 
-                });
+                        }
+                      });
         }
 
         return module;

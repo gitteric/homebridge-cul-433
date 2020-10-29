@@ -5,8 +5,9 @@ Homebridge Plugin for some 4333Mhz swithcing devices controlled by a nanoCUL don
 # Installation
 
 1. Install homebridge using: npm install -g homebridge
-2. Install this plugin using: sudo npm install -g git+https://github.com/gitteric/homebridge-cul-433.git
-3. Update your configuration file. See sample-config.json in this repository for a sample. 
+2. Install serialport using: sudo npm install -g --unsafe-perm serialport
+3. Install this plugin using: sudo npm install -g git+https://github.com/gitteric/homebridge-cul-433.git
+4. Update your configuration file. See sample-config.json in this repository for a sample. 
 
 # Configuration
 
