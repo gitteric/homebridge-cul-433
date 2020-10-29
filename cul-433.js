@@ -49,10 +49,11 @@ module.exports = function (type, variant, port, cmd_on, cmd_off, debug) {
                                 console.log('Com port open');
                                 com.write(sMessage + String.fromCharCode(0x0A), function (err, result) {
                                         if (err) {
-                                                console.log('Error while sending message : ' + err);
+                                                console.log('Error while sending message: ' +sMessage +' '+ err);
                                                 callback(false);
                                         }else{
-                                                console.log('Send message: '+sMessage)
+                                                console.log('Sent message: '+sMessage)
+                                                com.close(); 
                                                 callback(true);
         
                                         }
@@ -62,8 +63,7 @@ module.exports = function (type, variant, port, cmd_on, cmd_off, debug) {
                                         } 
                                         */   
                                 });
-                        }
-                com.close();  
+                        } 
                 });
         }
 
