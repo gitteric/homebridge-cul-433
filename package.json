@@ -1,0 +1,25 @@
+{
+  "name": "homebridge-cul-433",
+  "version": "1.0.0",
+  "description": "CUL 433 Mhz plugin for Homebridge (https://github.com/nfarina/homebridge)",
+  "license": "MIT",
+  "keywords": [
+    "homebridge-plugin"
+  ],
+  "engines": {
+    "node": ">=0.12.0",
+    "homebridge": ">=0.2.0"
+  },
+  "author": {
+    "name": "gitteric"
+  },
+  "contributors":[
+  ], 
+  "repository": {
+    "type": "git",
+    "url": "git@github.com:gitteric/homebridge-cul-433.git"
+  },
+  "dependencies": {
+    
+  }
+}
