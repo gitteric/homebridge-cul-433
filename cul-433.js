@@ -44,15 +44,23 @@ module.exports = function (type, variant, port, cmd_on, cmd_off, debug) {
                 com.open(function (error) {
                         if (error) {
                                 console.log('Error while opening the port ' +module.port +' ' + error);
+                                callback(false);
                         } else {
-                                console.log('CST port open');
+                                console.log('Com port open');
                                 com.write(sMessage + String.fromCharCode(0x0A), function (err, result) {
                                         if (err) {
                                                 console.log('Error while sending message : ' + err);
+                                                callback(false);
+                                        }else{
+                                                console.log('Send message: '+sMessage)
+                                                callback(true);
+        
                                         }
+                                        /*
                                         if (result) {
-                                                //console.log('Response received after sending message : ' + result);
-                                        }    
+                                                console.log('Response received after sending message : ' + result);
+                                        } 
+                                        */   
                                 });
                         }
                 com.close();  
