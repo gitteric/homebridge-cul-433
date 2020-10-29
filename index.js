@@ -9,6 +9,7 @@ module.exports = function (homebridge){
 
 function ControllerAccessory(log, config) {
 	this.log = log;
+	this.name = config['name'];
 	this.type = config['switch'];
 	this.variant = config[1];
 	this.port = config['/dev/tty0'];
@@ -30,9 +31,9 @@ ControllerAccessory.prototype = {
 		if (!this.type) this.type = 'switch';
 		if (!this.variant) this.variant = 1;
 		if (!this.port) this.port = '/dev/tty0';
-		if (!this.debug) this.debug = false;
 		if (!this.cmd_on) this.cmd_on = '';
 		if (!this.cmd_off) this.cmd_off = '';
+		if (!this.debug) this.debug = false;
 	},
 	
 	identify: function(callback){
