@@ -1,4 +1,4 @@
-var SerialPort = require('serialport');
+var SerialPort = require('serialport').SerialPort;
 
 module.exports = function (type, variant, port, cmd_on, cmd_off, debug) {
         var module = {};
