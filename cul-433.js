@@ -54,7 +54,8 @@ module.exports = function (type, variant, port, cmd_on, cmd_off, debug) {
                                                 //console.log('Response received after sending message : ' + result);
                                         }    
                                 });
-                        }  
+                        }
+                com.close();  
                 });
         }
 

@@ -10,12 +10,12 @@ module.exports = function (homebridge){
 function ControllerAccessory(log, config) {
 	this.log = log;
 	this.name = config['name'];
-	this.type = config['switch'];
-	this.variant = config[1];
-	this.port = config['/dev/tty0'];
-	this.debug = config[false];
-	this.cmd_on = config[''];
-	this.cmd_off = config[''];
+	this.type = config['type'];
+	this.variant = config['variant'];
+	this.port = config['port'];
+	this.debug = config['debug'];
+	this.cmd_on = config['cmd_on'];
+	this.cmd_off = config['cmd_off'];
 	this.verifyConfig();
 	
 	this.stripe = require('./cul-433.js')(this.type, this.variant, this.port, this.cmd_on,this.cmd_off, this.debug);
