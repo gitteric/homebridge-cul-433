@@ -63,10 +63,11 @@ module.exports = function (type, variant, port, cmd_on, cmd_off, debug) {
         */
         function sendMessage(sMessage, callback) {
                 var com = new SerialPort(module.port, {baudRate: 38400});
+                var tTimeout;
                 // On event port opened
                 com.on('open', function() {
                         console.log('Port ' + module.port + ' opened');
-                        setTimeout(comTimedOut, 1000);
+                        tTimeout = setTimeout(comTimedOut, 1000);
                         com.write(sMessage + '\n', function(err) {
                                 if(err) {
                                         console.log('Error writing message to port "' + module.port +'" ' + error);
@@ -81,6 +82,7 @@ module.exports = function (type, variant, port, cmd_on, cmd_off, debug) {
                 // On event data received
                 com.on('data', function (data) {
                         console.log('Serial data received: ' + data);
+                        clearTimeout(tTimeout);
                         callback(true);
                 });
                 
