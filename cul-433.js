@@ -77,7 +77,7 @@ module.exports = function (type, variant, port, cmd_on, cmd_off, debug) {
                                         callback(false);
                                 }else{
                                         while(i<50) {
-                                          response = com.read(sMessage.length); // BLOCKING, PERHAPS WITH TIMEOUT EXCEPTION;
+                                          response += com.read(sMessage.length); // BLOCKING, PERHAPS WITH TIMEOUT EXCEPTION;
                                           if(response!=null){
                                                 console.log('Received + ' + response);
                                           }
@@ -85,6 +85,7 @@ module.exports = function (type, variant, port, cmd_on, cmd_off, debug) {
                                                 break;
                                           }
                                           sleep(100);
+                                          i++;
                                         }
                                         if(i>=50){
                                                 console.log('Sending message to' + module.port + ' timed out');
