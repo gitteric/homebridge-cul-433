@@ -64,17 +64,35 @@ module.exports = function (type, variant, port, cmd_on, cmd_off, debug) {
         function sendMessage(sMessage, callback) {
                 var com = new SerialPort(module.port, {baudRate: 38400});
                 var tTimeout;
+                var response = '';
+                var i=0;
                 // On event port opened
                 com.on('open', function() {
                         console.log('Port ' + module.port + ' opened');
-                        tTimeout = setTimeout(comTimedOut, 1000);
+                        tTimeout = null;//setTimeout(comTimedOut, 5000);
                         com.write(sMessage + '\n', function(err) {
                                 if(err) {
                                         console.log('Error writing message to port "' + module.port +'" ' + error);
                                         com.close();
                                         callback(false);
                                 }else{
-                                        console.log('Sent message "'+ sMessage + '" ');
+                                        while(i<50) {
+                                          response = port.read(sMessage.length); // BLOCKING, PERHAPS WITH TIMEOUT EXCEPTION;
+                                          if(response!=null){
+                                                console.log('Received + ' + response);
+                                          }
+                                          if(response == sMessage) {
+                                                break;
+                                          }
+                                          sleep(100);
+                                        }
+                                        if(i>=50){
+                                                console.log('Sending message to' + module.port + ' timed out');
+                                                callback(false);
+                                        }else{
+                                                callback(true);
+                                        }
+
                                 }
                         });
                 });
@@ -101,6 +119,12 @@ module.exports = function (type, variant, port, cmd_on, cmd_off, debug) {
                         console.log('Sending message to' + module.port + ' timed out');
                         com.close();
                         callback(false);
+                }
+                
+                function sleep(ms) {
+                        return new Promise(resolve => {
+                        setTimeout(resolve, ms)
+                        })
                 }
         }
         return module;
