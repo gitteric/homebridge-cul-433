@@ -77,7 +77,7 @@ module.exports = function (type, variant, port, cmd_on, cmd_off, debug) {
                                         callback(false);
                                 }else{
                                         while(i<50) {
-                                          response = port.read(sMessage.length); // BLOCKING, PERHAPS WITH TIMEOUT EXCEPTION;
+                                          response = com.read(sMessage.length); // BLOCKING, PERHAPS WITH TIMEOUT EXCEPTION;
                                           if(response!=null){
                                                 console.log('Received + ' + response);
                                           }
