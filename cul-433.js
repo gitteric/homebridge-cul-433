@@ -96,6 +96,7 @@ module.exports = function (type, variant, port, cmd_on, cmd_off, debug) {
                 });
                 
                 function comTimedOut(){
+                        console.log('Sending message to' + module.port + ' timed out');
                         com.close();
                         callback(false);
                 }
