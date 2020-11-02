@@ -70,12 +70,14 @@ module.exports = function (type, variant, port, cmd_on, cmd_off, debug) {
                 com.on('open', function() {
                         console.log('Port ' + module.port + ' opened');
                         tTimeout = null;//setTimeout(comTimedOut, 5000);
+                        com.flush();
                         com.write(sMessage + '\n', function(err) {
                                 if(err) {
                                         console.log('Error writing message to port "' + module.port +'" ' + error);
                                         com.close();
                                         callback(false);
                                 }else{
+                                        console.log('Sent message ' + sMessage);
                                         while(i<50) {
                                           response += com.read(sMessage.length); // BLOCKING, PERHAPS WITH TIMEOUT EXCEPTION;
                                           if(response!=null){
