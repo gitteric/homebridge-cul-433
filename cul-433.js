@@ -65,7 +65,7 @@ module.exports = function (type, variant, port, cmd_on, cmd_off, debug) {
                 var com = new SerialPort(module.port, {baudRate: 38400});
                 // On event port opened
                 com.on('open', function() {
-                        console.log('Port ' + sPortNanoCul + ' opened');
+                        console.log('Port ' + module.port + ' opened');
                         setTimeout(comTimedOut, 1000);
                         com.write(sMessage + '\n', function(err) {
                                 if(err) {
@@ -92,7 +92,7 @@ module.exports = function (type, variant, port, cmd_on, cmd_off, debug) {
                 
                 // On event port closed
                 com.on('close', function() {
-                        console.log('Port ' + sPortNanoCul + ' closed');
+                        console.log('Port ' + module.port + ' closed');
                 });
                 
                 function comTimedOut(){
