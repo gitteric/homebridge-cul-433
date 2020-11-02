@@ -8,6 +8,9 @@ Homebridge Plugin for some 4333Mhz swithcing devices controlled by a nanoCUL don
 2. Install serialport using: sudo npm install -g --unsafe-perm serialport
 3. Install this plugin using: sudo npm install -g git+https://github.com/gitteric/homebridge-cul-433.git
 4. Update your configuration file. See sample-config.json in this repository for a sample. 
+5. In case permissions prevent properly sending commands to serial port, do
+	-> Add user pi to group dialout (pi should allready be member): usermod -a -G dialout pi
+	-> Add following line to /etc/udev/rules.d/99-com.rules: KERNEL=="ttyUSB[0-9]*", MODE="0660"
 
 # Configuration
 

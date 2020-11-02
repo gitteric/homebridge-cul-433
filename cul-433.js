@@ -38,8 +38,9 @@ module.exports = function (type, variant, port, cmd_on, cmd_off, debug) {
                 setColor(callback);
         };
         */
+       /*
         function sendMessage(sMessage, callback) {
-                var com = new SerialPort(module.port, {baudRate: 38400, databits: 8, parity: 'none'}, function(err) {
+                var com = new SerialPort(module.port, {baudRate: 38400}, function(err) {
                         if(err) {
                                 console.log('Error while opening the port "' + module.port +'" ' + error);
                                 callback(false);
@@ -59,6 +60,45 @@ module.exports = function (type, variant, port, cmd_on, cmd_off, debug) {
                         }
                       });
         }
-
+        */
+        function sendMessage(sMessage, callback) {
+                var com = new SerialPort(module.port, {baudRate: 38400});
+                // On event port opened
+                com.on('open', function() {
+                        console.log('Port ' + sPortNanoCul + ' opened');
+                        setTimeout(comTimedOut, 1000);
+                        com.write(sMessage + '\n', function(err) {
+                                if(err) {
+                                        console.log('Error writing message to port "' + module.port +'" ' + error);
+                                        com.close();
+                                        callback(false);
+                                }else{
+                                        console.log('Sent message "'+ sMessage + '" ');
+                                }
+                        });
+                });
+                
+                // On event data received
+                com.on('data', function (data) {
+                        console.log('Serial data received: ' + data);
+                        callback(true);
+                });
+                
+                // On event error occured
+                com.on('error', function(err) {
+                        console.log('Error on port: ', err.message);
+                        callback(false);
+                });
+                
+                // On event port closed
+                com.on('close', function() {
+                        console.log('Port ' + sPortNanoCul + ' closed');
+                });
+                
+                function comTimedOut(){
+                        com.close();
+                        callback(false);
+                }
+        }
         return module;
 };
